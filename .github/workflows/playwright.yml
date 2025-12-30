@@ -16,6 +16,85 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Write secrets.ts from repo secrets
+        run: |
+          cat > secrets.ts <<'TS'
+          export const environmentSecrets = {
+            DEV: {
+              adminUsername: "${{ secrets.DEV_ADMIN_USERNAME }}",
+              adminPassword: "${{ secrets.DEV_ADMIN_PASSWORD }}",
+              provinceOption: "${{ secrets.DEV_PROVINCE_OPTION }}",
+              shouldClickOpenIdConnect: ${{ secrets.DEV_SHOULD_CLICK_OPENIDCONNECT }},
+              notranscriptStudent: "${{ secrets.DEV_NOTRANSCRIPT_STUDENT }}",
+              transcriptStudent: "${{ secrets.DEV_TRANSCRIPT_STUDENT }}",
+              academicRecordStudent: "${{ secrets.DEV_ACADEMIC_RECORD_STUDENT }}",
+              academicRecordPeriod: "${{ secrets.DEV_ACADEMIC_RECORD_PERIOD }}",
+              addstudentPeriod: "${{ secrets.DEV_ADDSTUDENT_PERIOD }}",
+              markerUser: "${{ secrets.DEV_MARKER_USER }}",
+              assessorUser: "${{ secrets.DEV_ASSESSOR_USER }}",
+              willStudent: "${{ secrets.DEV_WILL_STUDENT }}",
+              dbhost: "${{ secrets.DEV_DBHOST }}",
+              dbuser: "${{ secrets.DEV_DBUSER }}",
+              dbpassword: "${{ secrets.DEV_DBPASSWORD }}",
+              dbname: "${{ secrets.DEV_DBNAME }}",
+            },
+            UAT: {
+              adminUsername: "${{ secrets.UAT_ADMIN_USERNAME }}",
+              adminPassword: "${{ secrets.UAT_ADMIN_PASSWORD }}",
+              provinceOption: "${{ secrets.UAT_PROVINCE_OPTION }}",
+              shouldClickOpenIdConnect: ${{ secrets.UAT_SHOULD_CLICK_OPENIDCONNECT }},
+              notranscriptStudent: "${{ secrets.UAT_NOTRANSCRIPT_STUDENT }}",
+              transcriptStudent: "${{ secrets.UAT_TRANSCRIPT_STUDENT }}",
+              academicRecordStudent: "${{ secrets.UAT_ACADEMIC_RECORD_STUDENT }}",
+              academicRecordPeriod: "${{ secrets.UAT_ACADEMIC_RECORD_PERIOD }}",
+              addstudentPeriod: "${{ secrets.UAT_ADDSTUDENT_PERIOD }}",
+              markerUser: "${{ secrets.UAT_MARKER_USER }}",
+              assessorUser: "${{ secrets.UAT_ASSESSOR_USER }}",
+              willStudent: "${{ secrets.UAT_WILL_STUDENT }}",
+              dbhost: "${{ secrets.UAT_DBHOST }}",
+              dbuser: "${{ secrets.UAT_DBUSER }}",
+              dbpassword: "${{ secrets.UAT_DBPASSWORD }}",
+              dbname: "${{ secrets.UAT_DBNAME }}",
+            },
+            STG: {
+              adminUsername: "${{ secrets.STG_ADMIN_USERNAME }}",
+              adminPassword: "${{ secrets.STG_ADMIN_PASSWORD }}",
+              provinceOption: "${{ secrets.STG_PROVINCE_OPTION }}",
+              shouldClickOpenIdConnect: ${{ secrets.STG_SHOULD_CLICK_OPENIDCONNECT }},
+              notranscriptStudent: "${{ secrets.STG_NOTRANSCRIPT_STUDENT }}",
+              transcriptStudent: "${{ secrets.STG_TRANSCRIPT_STUDENT }}",
+              academicRecordStudent: "${{ secrets.STG_ACADEMIC_RECORD_STUDENT }}",
+              academicRecordPeriod: "${{ secrets.STG_ACADEMIC_RECORD_PERIOD }}",
+              addstudentPeriod: "${{ secrets.STG_ADDSTUDENT_PERIOD }}",
+              markerUser: "${{ secrets.STG_MARKER_USER }}",
+              assessorUser: "${{ secrets.STG_ASSESSOR_USER }}",
+              willStudent: "${{ secrets.STG_WILL_STUDENT }}",
+              dbhost: "${{ secrets.STG_DBHOST }}",
+              dbuser: "${{ secrets.STG_DBUSER }}",
+              dbpassword: "${{ secrets.STG_DBPASSWORD }}",
+              dbname: "${{ secrets.STG_DBNAME }}",
+            },
+            PROD: {
+              adminUsername: "${{ secrets.PROD_ADMIN_USERNAME }}",
+              adminPassword: "${{ secrets.PROD_ADMIN_PASSWORD }}",
+              provinceOption: "${{ secrets.PROD_PROVINCE_OPTION }}",
+              shouldClickOpenIdConnect: ${{ secrets.PROD_SHOULD_CLICK_OPENIDCONNECT }},
+              notranscriptStudent: "${{ secrets.PROD_NOTRANSCRIPT_STUDENT }}",
+              transcriptStudent: "${{ secrets.PROD_TRANSCRIPT_STUDENT }}",
+              academicRecordStudent: "${{ secrets.PROD_ACADEMIC_RECORD_STUDENT }}",
+              academicRecordPeriod: "${{ secrets.PROD_ACADEMIC_RECORD_PERIOD }}",
+              addstudentPeriod: "${{ secrets.PROD_ADDSTUDENT_PERIOD }}",
+              markerUser: "${{ secrets.PROD_MARKER_USER }}",
+              assessorUser: "${{ secrets.PROD_ASSESSOR_USER }}",
+              willStudent: "${{ secrets.PROD_WILL_STUDENT }}",
+              dbhost: "${{ secrets.PROD_DBHOST }}",
+              dbuser: "${{ secrets.PROD_DBUSER }}",
+              dbpassword: "${{ secrets.PROD_DBPASSWORD }}",
+              dbname: "${{ secrets.PROD_DBNAME }}",
+            },
+          } as const;
+          TS
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
