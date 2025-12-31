@@ -19,7 +19,19 @@ jobs:
     env:
       PROD_ADMIN_USERNAME: ${{ secrets.PROD_ADMIN_USERNAME }}
       PROD_ADMIN_PASSWORD: ${{ secrets.PROD_ADMIN_PASSWORD }}
-      # ... other PROD secrets
+      PROD_PROVINCE_OPTION: ${{ secrets.PROD_PROVINCE_OPTION }}
+      PROD_NOTRANSCRIPT_STUDENT: ${{ secrets.PROD_NOTRANSCRIPT_STUDENT }}
+      PROD_TRANSCRIPT_STUDENT: ${{ secrets.PROD_TRANSCRIPT_STUDENT }}
+      PROD_ACADEMIC_RECORD_STUDENT: ${{ secrets.PROD_ACADEMIC_RECORD_STUDENT }}
+      PROD_ACADEMIC_RECORD_PERIOD: ${{ secrets.PROD_ACADEMIC_RECORD_PERIOD }}
+      PROD_ADDSTUDENT_PERIOD: ${{ secrets.PROD_ADDSTUDENT_PERIOD }}
+      PROD_MARKER_USER: ${{ secrets.PROD_MARKER_USER }}
+      PROD_ASSESSOR_USER: ${{ secrets.PROD_ASSESSOR_USER }}
+      PROD_WILL_STUDENT: ${{ secrets.PROD_WILL_STUDENT }}
+      PROD_DBHOST: ${{ secrets.PROD_DBHOST }}
+      PROD_DBUSER: ${{ secrets.PROD_DBUSER }}
+      PROD_DBPASSWORD: ${{ secrets.PROD_DBPASSWORD }}
+      PROD_DBNAME: ${{ secrets.PROD_DBNAME }}
 
     steps:
       - name: Checkout repository
@@ -30,18 +42,6 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
-
-      - name: Install Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: "temurin"
-          java-version: "17"
-
-      - name: Install Allure CLI
-        run: |
-          curl -sL https://github.com/allure-framework/allure2/releases/latest/download/allure-2.27.2.zip -o allure.zip
-          unzip allure.zip -d $HOME/allure
-          echo "$HOME/allure/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
         run: npm ci
@@ -56,6 +56,14 @@ jobs:
         if: always()
         run: npm run allure:generate || true
 
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report-prod
+          path: allure-report/
+          retention-days: 7
+
       - name: Deploy Allure Report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
@@ -63,5 +71,129 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
           destination_dir: allure/${{ job.environment }}
-          user_name: github-actions
-          user_email: github-actions@github.com
+
+  dev:
+    name: Playwright DEV Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: DEV
+    env:
+      DEV_ADMIN_USERNAME: ${{ secrets.DEV_ADMIN_USERNAME }}
+      DEV_ADMIN_PASSWORD: ${{ secrets.DEV_ADMIN_PASSWORD }}
+      DEV_PROVINCE_OPTION: ${{ secrets.DEV_PROVINCE_OPTION }}
+      DEV_NOTRANSCRIPT_STUDENT: ${{ secrets.DEV_NOTRANSCRIPT_STUDENT }}
+      DEV_TRANSCRIPT_STUDENT: ${{ secrets.DEV_TRANSCRIPT_STUDENT }}
+      DEV_ACADEMIC_RECORD_STUDENT: ${{ secrets.DEV_ACADEMIC_RECORD_STUDENT }}
+      DEV_ACADEMIC_RECORD_PERIOD: ${{ secrets.DEV_ACADEMIC_RECORD_PERIOD }}
+      DEV_ADDSTUDENT_PERIOD: ${{ secrets.DEV_ADDSTUDENT_PERIOD }}
+      DEV_MARKER_USER: ${{ secrets.DEV_MARKER_USER }}
+      DEV_ASSESSOR_USER: ${{ secrets.DEV_ASSESSOR_USER }}
+      DEV_WILL_STUDENT: ${{ secrets.DEV_WILL_STUDENT }}
+      DEV_DBHOST: ${{ secrets.DEV_DBHOST }}
+      DEV_DBUSER: ${{ secrets.DEV_DBUSER }}
+      DEV_DBPASSWORD: ${{ secrets.DEV_DBPASSWORD }}
+      DEV_DBNAME: ${{ secrets.DEV_DBNAME }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright DEV tests
+        run: npm run test:dev
+
+      - name: Generate Allure Report
+        if: always()
+        run: npm run allure:generate || true
+
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report-dev
+          path: allure-report/
+          retention-days: 7
+
+      - name: Deploy Allure Report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          destination_dir: allure/${{ job.environment }}
+
+  uat:
+    name: Playwright UAT Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: UAT
+    env:
+      UAT_ADMIN_USERNAME: ${{ secrets.UAT_ADMIN_USERNAME }}
+      UAT_ADMIN_PASSWORD: ${{ secrets.UAT_ADMIN_PASSWORD }}
+      UAT_PROVINCE_OPTION: ${{ secrets.UAT_PROVINCE_OPTION }}
+      UAT_NOTRANSCRIPT_STUDENT: ${{ secrets.UAT_NOTRANSCRIPT_STUDENT }}
+      UAT_TRANSCRIPT_STUDENT: ${{ secrets.UAT_TRANSCRIPT_STUDENT }}
+      UAT_ACADEMIC_RECORD_STUDENT: ${{ secrets.UAT_ACADEMIC_RECORD_STUDENT }}
+      UAT_ACADEMIC_RECORD_PERIOD: ${{ secrets.UAT_ACADEMIC_RECORD_PERIOD }}
+      UAT_ADDSTUDENT_PERIOD: ${{ secrets.UAT_ADDSTUDENT_PERIOD }}
+      UAT_MARKER_USER: ${{ secrets.UAT_MARKER_USER }}
+      UAT_ASSESSOR_USER: ${{ secrets.UAT_ASSESSOR_USER }}
+      UAT_WILL_STUDENT: ${{ secrets.UAT_WILL_STUDENT }}
+      UAT_DBHOST: ${{ secrets.UAT_DBHOST }}
+      UAT_DBUSER: ${{ secrets.UAT_DBUSER }}
+      UAT_DBPASSWORD: ${{ secrets.UAT_DBPASSWORD }}
+      UAT_DBNAME: ${{ secrets.UAT_DBNAME }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check UAT env presence (safe)
+        run: |
+          node -e "console.log('UAT_ADMIN_USERNAME present:', !!process.env.UAT_ADMIN_USERNAME, 'length:', process.env.UAT_ADMIN_USERNAME ? process.env.UAT_ADMIN_USERNAME.length : 0); console.log('UAT_ADMIN_PASSWORD present:', !!process.env.UAT_ADMIN_PASSWORD, 'length:', process.env.UAT_ADMIN_PASSWORD ? process.env.UAT_ADMIN_PASSWORD.length : 0)"
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright UAT tests
+        run: npm run test:uat
+
+      - name: Generate Allure Report
+        if: always()
+        run: npm run allure:generate || true
+
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report-uat
+          path: allure-report/
+          retention-days: 7
+
+      - name: Deploy Allure Report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          destination_dir: allure/${{ job.environment }}
