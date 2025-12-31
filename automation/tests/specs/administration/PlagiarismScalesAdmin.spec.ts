@@ -5,7 +5,7 @@ import { NavBar } from "../../pages/components/NavBar";
 import { PlagiarismPage } from "../../pages/portal/PlagiarismPage";
 
 test("Plagiarism Scales", async ({ page, admin }, testInfo) => {
-  const globals = getGlobals(testInfo);
+  const globals = getGlobals(testInfo)();
   const nav = new NavBar(page);
   const plagiarism = new PlagiarismPage(page);
 

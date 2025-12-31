@@ -5,7 +5,7 @@ import { NavBar } from "../../pages/components/NavBar";
 
 test("Student Upload POP in My Account", async ({ page, admin }, testInfo) => {
   const POPfilePath = "automation/Test_Documents/Test_Dummy_POP.pdf";
-  const globals = getGlobals(testInfo);
+  const globals = getGlobals(testInfo)();
   const nav = new NavBar(page);
 
   await nav.goToUsers();

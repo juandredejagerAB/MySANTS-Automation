@@ -4,7 +4,7 @@ import { test } from "../../fixtures/authFixture";
 import { StudentOnboardingPage } from "../../pages/portal/StudentOnboardingPage";
 
 test("Student Onboarding", async ({ page, admin }, testInfo) => {
-  const globals = getGlobals(testInfo);
+  const globals = getGlobals(testInfo)();
   const onboarding = new StudentOnboardingPage(page);
 
   await onboarding.searchAdmittedStudent("autoN");

@@ -7,7 +7,7 @@ import { inferEnv, type Env } from "./inferEnv";
 function getDbConfig(env?: Env) {
   const key =
     env ?? inferEnv(process.env.DB_ENV || process.env.NODE_ENV || "DEV");
-  const cfg = environmentSecrets[key];
+  const cfg = environmentSecrets[key]();
 
   return {
     host: cfg.dbhost,

@@ -4,7 +4,7 @@ import { test, expect } from "../../fixtures/authFixture";
 import { NavBar } from "../../pages/components/NavBar";
 
 test("Add and Remove Academic Record", async ({ page, admin }, testInfo) => {
-  const globals = getGlobals(testInfo);
+  const globals = getGlobals(testInfo)();
   const nav = new NavBar(page);
 
   await nav.goToStudents();

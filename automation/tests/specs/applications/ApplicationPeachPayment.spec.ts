@@ -6,7 +6,7 @@ import { getGlobals } from "../../../utils/getGlobals";
 test("Apply New Student", async ({ page }, testInfo) => {
   const apply = new ApplyPage(page);
   const { idNumber, firstName, surname, email } = generateRandomStudentInfo();
-  const globals = getGlobals(testInfo);
+  const globals = getGlobals(testInfo)();
 
   console.log({ idNumber, firstName, surname, email });
 

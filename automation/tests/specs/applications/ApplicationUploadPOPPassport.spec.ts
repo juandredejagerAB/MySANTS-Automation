@@ -6,7 +6,7 @@ import { ApplyPage } from "../../pages/portal/ApplyPage";
 test("Apply New Student", async ({ page }, testInfo) => {
   const apply = new ApplyPage(page);
   const { firstName, surname, email, passport } = generateRandomStudentInfo();
-  const globals = getGlobals(testInfo);
+  const globals = getGlobals(testInfo)();
 
   console.log({ passport, firstName, surname, email });
 

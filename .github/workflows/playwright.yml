@@ -14,7 +14,6 @@ jobs:
     timeout-minutes: 60
     environment: PROD
     env:
-      # PROD
       PROD_ADMIN_USERNAME: ${{ secrets.PROD_ADMIN_USERNAME }}
       PROD_ADMIN_PASSWORD: ${{ secrets.PROD_ADMIN_PASSWORD }}
       PROD_PROVINCE_OPTION: ${{ secrets.PROD_PROVINCE_OPTION }}
@@ -79,9 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     environment: DEV
-    needs: prod
     env:
-      # DEV
       DEV_ADMIN_USERNAME: ${{ secrets.DEV_ADMIN_USERNAME }}
       DEV_ADMIN_PASSWORD: ${{ secrets.DEV_ADMIN_PASSWORD }}
       DEV_PROVINCE_OPTION: ${{ secrets.DEV_PROVINCE_OPTION }}
@@ -143,7 +140,6 @@ jobs:
     timeout-minutes: 60
     environment: UAT
     env:
-      # UAT
       UAT_ADMIN_USERNAME: ${{ secrets.UAT_ADMIN_USERNAME }}
       UAT_ADMIN_PASSWORD: ${{ secrets.UAT_ADMIN_PASSWORD }}
       UAT_PROVINCE_OPTION: ${{ secrets.UAT_PROVINCE_OPTION }}
@@ -209,7 +205,6 @@ jobs:
     timeout-minutes: 60
     environment: STG
     env:
-      # STG
       STG_ADMIN_USERNAME: ${{ secrets.STG_ADMIN_USERNAME }}
       STG_ADMIN_PASSWORD: ${{ secrets.STG_ADMIN_PASSWORD }}
       STG_PROVINCE_OPTION: ${{ secrets.STG_PROVINCE_OPTION }}

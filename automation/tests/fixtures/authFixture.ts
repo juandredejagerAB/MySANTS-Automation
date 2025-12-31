@@ -42,14 +42,14 @@ export const test = base.extend<{
   },
 
   admin: async ({ page, env, acceptCookies }, use) => {
-    const creds = environmentSecrets[env];
+    const creds = environmentSecrets[env]();
     const login = new LoginPage(page, acceptCookies);
     await login.loginAs(creds.adminUsername, creds.adminPassword);
     await use({ username: creds.adminUsername, password: creds.adminPassword });
   },
 
   notranscriptStudent: async ({ page, env, acceptCookies }, use) => {
-    const creds = environmentSecrets[env];
+    const creds = environmentSecrets[env]();
     const login = new LoginPage(page, acceptCookies); // pass the flag
     await login.loginAs(creds.notranscriptStudent, creds.adminPassword);
     await use({
@@ -59,7 +59,7 @@ export const test = base.extend<{
   },
 
   willStudent: async ({ page, env, acceptCookies }, use) => {
-    const creds = environmentSecrets[env];
+    const creds = environmentSecrets[env]();
     const login = new LoginPage(page, acceptCookies); // pass the flag
     await login.loginAs(creds.willStudent, creds.adminPassword); // passsword01
     await use({
@@ -69,7 +69,7 @@ export const test = base.extend<{
   },
 
   marker: async ({ page, env, acceptCookies }, use) => {
-    const creds = environmentSecrets[env];
+    const creds = environmentSecrets[env]();
     const login = new LoginPage(page, acceptCookies); // pass the flag
     await login.loginAs(creds.markerUser, creds.adminPassword);
     await use({
@@ -79,7 +79,7 @@ export const test = base.extend<{
   },
 
   assessor: async ({ page, env, acceptCookies }, use) => {
-    const creds = environmentSecrets[env];
+    const creds = environmentSecrets[env]();
     const login = new LoginPage(page, acceptCookies); // pass the flag
     await login.loginAs(creds.assessorUser, creds.adminPassword);
     await use({

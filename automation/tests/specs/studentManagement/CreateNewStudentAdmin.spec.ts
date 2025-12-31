@@ -5,7 +5,7 @@ import { test, expect } from "../../fixtures/authFixture";
 import { StudentsPage } from "../../pages/portal/StudentsPage";
 
 test("Create New Student", async ({ page, admin }, testInfo) => {
-  const globals = getGlobals(testInfo);
+  const globals = getGlobals(testInfo)();
   const { idNumber, firstName, surname, email } = generateRandomStudentInfo();
   const students = new StudentsPage(page);
 

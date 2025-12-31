@@ -19,7 +19,7 @@ export interface EnvironmentConfig {
 }
 
 export const environmentSecrets = {
-  DEV: {
+  DEV: () => ({
     adminUsername: process.env.DEV_ADMIN_USERNAME ?? "",
     adminPassword: process.env.DEV_ADMIN_PASSWORD ?? "",
     provinceOption: process.env.DEV_PROVINCE_OPTION ?? "",
@@ -35,8 +35,8 @@ export const environmentSecrets = {
     dbuser: process.env.DEV_DBUSER ?? "",
     dbpassword: process.env.DEV_DBPASSWORD ?? "",
     dbname: process.env.DEV_DBNAME ?? "",
-  },
-  UAT: {
+  }),
+  UAT: () => ({
     adminUsername: process.env.UAT_ADMIN_USERNAME ?? "",
     adminPassword: process.env.UAT_ADMIN_PASSWORD ?? "",
     provinceOption: process.env.UAT_PROVINCE_OPTION ?? "",
@@ -52,8 +52,8 @@ export const environmentSecrets = {
     dbuser: process.env.UAT_DBUSER ?? "",
     dbpassword: process.env.UAT_DBPASSWORD ?? "",
     dbname: process.env.UAT_DBNAME ?? "",
-  },
-  STG: {
+  }),
+  STG: () => ({
     adminUsername: process.env.STG_ADMIN_USERNAME ?? "",
     adminPassword: process.env.STG_ADMIN_PASSWORD ?? "",
     provinceOption: process.env.STG_PROVINCE_OPTION ?? "",
@@ -69,8 +69,8 @@ export const environmentSecrets = {
     dbuser: process.env.STG_DBUSER ?? "",
     dbpassword: process.env.STG_DBPASSWORD ?? "",
     dbname: process.env.STG_DBNAME ?? "",
-  },
-  PROD: {
+  }),
+  PROD: () => ({
     adminUsername: process.env.PROD_ADMIN_USERNAME ?? "",
     adminPassword: process.env.PROD_ADMIN_PASSWORD ?? "",
     provinceOption: process.env.PROD_PROVINCE_OPTION ?? "",
@@ -86,5 +86,5 @@ export const environmentSecrets = {
     dbuser: process.env.PROD_DBUSER ?? "",
     dbpassword: process.env.PROD_DBPASSWORD ?? "",
     dbname: process.env.PROD_DBNAME ?? "",
-  },
+  }),
 } as const;

@@ -7,7 +7,7 @@ test("Student Academic Progress with Transcript", async ({
   page,
   admin,
 }, testInfo) => {
-  const globals = getGlobals(testInfo);
+  const globals = getGlobals(testInfo)();
   const academicProgress = new AcademicProgressPage(page);
 
   await academicProgress.loginAsStudent(globals.transcriptStudent);
