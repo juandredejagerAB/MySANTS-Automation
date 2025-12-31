@@ -11,31 +11,45 @@ permissions:
   contents: write
 
 jobs:
-  prod:
-    name: Playwright PROD Tests
+  dev:
+    name: Playwright DEV Tests
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    environment: PROD
+    environment: DEV
     env:
-      PROD_ADMIN_USERNAME: ${{ secrets.PROD_ADMIN_USERNAME }}
-      PROD_ADMIN_PASSWORD: ${{ secrets.PROD_ADMIN_PASSWORD }}
-      PROD_PROVINCE_OPTION: ${{ secrets.PROD_PROVINCE_OPTION }}
-      PROD_NOTRANSCRIPT_STUDENT: ${{ secrets.PROD_NOTRANSCRIPT_STUDENT }}
-      PROD_TRANSCRIPT_STUDENT: ${{ secrets.PROD_TRANSCRIPT_STUDENT }}
-      PROD_ACADEMIC_RECORD_STUDENT: ${{ secrets.PROD_ACADEMIC_RECORD_STUDENT }}
-      PROD_ACADEMIC_RECORD_PERIOD: ${{ secrets.PROD_ACADEMIC_RECORD_PERIOD }}
-      PROD_ADDSTUDENT_PERIOD: ${{ secrets.PROD_ADDSTUDENT_PERIOD }}
-      PROD_MARKER_USER: ${{ secrets.PROD_MARKER_USER }}
-      PROD_ASSESSOR_USER: ${{ secrets.PROD_ASSESSOR_USER }}
-      PROD_WILL_STUDENT: ${{ secrets.PROD_WILL_STUDENT }}
-      PROD_DBHOST: ${{ secrets.PROD_DBHOST }}
-      PROD_DBUSER: ${{ secrets.PROD_DBUSER }}
-      PROD_DBPASSWORD: ${{ secrets.PROD_DBPASSWORD }}
-      PROD_DBNAME: ${{ secrets.PROD_DBNAME }}
+      DEV_ADMIN_USERNAME: ${{ secrets.DEV_ADMIN_USERNAME }}
+      DEV_ADMIN_PASSWORD: ${{ secrets.DEV_ADMIN_PASSWORD }}
+      DEV_PROVINCE_OPTION: ${{ secrets.DEV_PROVINCE_OPTION }}
+      DEV_NOTRANSCRIPT_STUDENT: ${{ secrets.DEV_NOTRANSCRIPT_STUDENT }}
+      DEV_TRANSCRIPT_STUDENT: ${{ secrets.DEV_TRANSCRIPT_STUDENT }}
+      DEV_ACADEMIC_RECORD_STUDENT: ${{ secrets.DEV_ACADEMIC_RECORD_STUDENT }}
+      DEV_ACADEMIC_RECORD_PERIOD: ${{ secrets.DEV_ACADEMIC_RECORD_PERIOD }}
+      DEV_ADDSTUDENT_PERIOD: ${{ secrets.DEV_ADDSTUDENT_PERIOD }}
+      DEV_MARKER_USER: ${{ secrets.DEV_MARKER_USER }}
+      DEV_ASSESSOR_USER: ${{ secrets.DEV_ASSESSOR_USER }}
+      DEV_WILL_STUDENT: ${{ secrets.DEV_WILL_STUDENT }}
+      DEV_DBHOST: ${{ secrets.DEV_DBHOST }}
+      DEV_DBUSER: ${{ secrets.DEV_DBUSER }}
+      DEV_DBPASSWORD: ${{ secrets.DEV_DBPASSWORD }}
+      DEV_DBNAME: ${{ secrets.DEV_DBNAME }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+              - name: Install WireGuard
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wireguard
+
+      - name: Setup WireGuard
+        run: |
+          echo "${{ secrets.WIREGUARD_CONFIG }}" | sudo tee /etc/wireguard/wg0.conf
+          sudo chmod 600 /etc/wireguard/wg0.conf
+
+      - name: Start WireGuard
+        run: |
+          sudo wg-quick up wg0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -49,18 +63,18 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright PROD tests
-        run: npm run test:prod
+      - name: Run Playwright DEV tests
+        run: npm run test:dev
 
       - name: Generate Allure Report
         if: always()
-        run: npm run allure:singlegenerate || true
+        run: npm run allure:generate || true
 
       - name: Upload Allure Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report-prod
+          name: allure-report-dev
           path: allure-report/
           retention-days: 7
 
@@ -70,10 +84,15 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
-          destination_dir: allure/PROD
+          destination_dir: allure/DEV
 
       - name: Show Allure Report URL
         if: always()
         run: |
-          echo "✅ Allure Report is available here:"
-          echo "https://juandredejagerab.github.io/MySANTS-Automation/allure/PROD"
+          echo "✅ DEV | Allure Report is available here:"
+          echo "https://juandredejagerab.github.io/MySANTS-Automation/allure/DEV"
+          
+      - name: Stop WireGuard
+        if: always()
+        run: |
+          sudo wg-quick down wg0
