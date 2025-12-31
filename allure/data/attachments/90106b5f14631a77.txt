@@ -1,6 +1,0 @@
-{
-  passport: 'A76480513',
-  firstName: 'autoNElla',
-  surname: 'Mbatha',
-  email: 'autonellambatha1767175921224@maildrop.cc'
-}

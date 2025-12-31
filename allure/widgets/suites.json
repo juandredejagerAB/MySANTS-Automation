@@ -1,1 +1,1 @@
-{"total":1,"items":[{"uid":"453164951166acc6c05b198352abf72b","name":"DEV - Chrome","statistic":{"failed":5,"broken":30,"skipped":0,"passed":2,"unknown":0,"total":37}}]}
+{"total":1,"items":[{"uid":"bddd0b69f6f03193c5394fffec8d8b05","name":"UAT - Chrome","statistic":{"failed":7,"broken":30,"skipped":0,"passed":0,"unknown":0,"total":37}}]}
