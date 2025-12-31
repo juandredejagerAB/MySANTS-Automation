@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","33062","Cookie Policy Page","PROD - Chrome","Wed Dec 31 09:31:32 UTC 2025","passed","Wed Dec 31 09:32:05 UTC 2025","","specs/sitedefault/CookiePolicyPage.spec.ts","",""
+"","33489","Admin can log in","PROD - Chrome","Wed Dec 31 09:31:33 UTC 2025","passed","Wed Dec 31 09:32:06 UTC 2025","","specs/sitedefault/AdminLogin.spec.ts","",""
+"","34304","Footer","PROD - Chrome","Wed Dec 31 09:31:33 UTC 2025","passed","Wed Dec 31 09:32:07 UTC 2025","","specs/sitedefault/Footer.spec.ts","",""
