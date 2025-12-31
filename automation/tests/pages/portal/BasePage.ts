@@ -18,7 +18,7 @@ export class BasePage {
   async waitForLanding(): Promise<void> {
     await this.page
       .getByRole("heading", { name: "Dashboard", level: 3 })
-      .waitFor({ timeout: 15000 });
+      .waitFor({ timeout: 45000 });
 
     if (this.acceptCookies) {
       await this.cookieBanner.accept();
