@@ -61,6 +61,14 @@ jobs:
           path: allure-report/
           retention-days: 7
 
+      - name: Deploy Allure Report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          destination_dir: allure/${{ job.environment }}
+
   dev:
     name: Playwright DEV Tests
     runs-on: ubuntu-latest
@@ -114,6 +122,14 @@ jobs:
           path: allure-report/
           retention-days: 7
 
+      - name: Deploy Allure Report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          destination_dir: allure/${{ job.environment }}
+
   uat:
     name: Playwright UAT Tests
     runs-on: ubuntu-latest
@@ -157,7 +173,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright UAT tests
-        run: npm run test:dev -- --project="UAT - Chrome"
+        run: npm run test:uat
 
       - name: Generate Allure Report
         if: always()
@@ -170,3 +186,11 @@ jobs:
           name: allure-report-uat
           path: allure-report/
           retention-days: 7
+
+      - name: Deploy Allure Report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          destination_dir: allure/${{ job.environment }}
