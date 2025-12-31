@@ -1,6 +1,0 @@
-{
-  idNumber: '5909058852085',
-  firstName: 'autoNZoey',
-  surname: 'VanNiekerk',
-  email: 'autonzoeyvanniekerk1767178088469@maildrop.cc'
-}
