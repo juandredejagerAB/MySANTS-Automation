@@ -12,7 +12,9 @@ export default defineConfig({
   workers: process.env.CI ? 5 : 2,
   reporter: [["list"], ["allure-playwright"]],
   use: {
-    trace: "on-first-retry",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure",
+    trace: "retain-on-failure",
   },
   projects: [
     {
