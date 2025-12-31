@@ -11,85 +11,75 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      # DEV
+      DEV_ADMIN_USERNAME: ${{ secrets.DEV_ADMIN_USERNAME }}
+      DEV_ADMIN_PASSWORD: ${{ secrets.DEV_ADMIN_PASSWORD }}
+      DEV_PROVINCE_OPTION: ${{ secrets.DEV_PROVINCE_OPTION }}
+      DEV_NOTRANSCRIPT_STUDENT: ${{ secrets.DEV_NOTRANSCRIPT_STUDENT }}
+      DEV_TRANSCRIPT_STUDENT: ${{ secrets.DEV_TRANSCRIPT_STUDENT }}
+      DEV_ACADEMIC_RECORD_STUDENT: ${{ secrets.DEV_ACADEMIC_RECORD_STUDENT }}
+      DEV_ACADEMIC_RECORD_PERIOD: ${{ secrets.DEV_ACADEMIC_RECORD_PERIOD }}
+      DEV_ADDSTUDENT_PERIOD: ${{ secrets.DEV_ADDSTUDENT_PERIOD }}
+      DEV_MARKER_USER: ${{ secrets.DEV_MARKER_USER }}
+      DEV_ASSESSOR_USER: ${{ secrets.DEV_ASSESSOR_USER }}
+      DEV_WILL_STUDENT: ${{ secrets.DEV_WILL_STUDENT }}
+      DEV_DBHOST: ${{ secrets.DEV_DBHOST }}
+      DEV_DBUSER: ${{ secrets.DEV_DBUSER }}
+      DEV_DBPASSWORD: ${{ secrets.DEV_DBPASSWORD }}
+      DEV_DBNAME: ${{ secrets.DEV_DBNAME }}
+      # UAT
+      UAT_ADMIN_USERNAME: ${{ secrets.UAT_ADMIN_USERNAME }}
+      UAT_ADMIN_PASSWORD: ${{ secrets.UAT_ADMIN_PASSWORD }}
+      UAT_PROVINCE_OPTION: ${{ secrets.UAT_PROVINCE_OPTION }}
+      UAT_NOTRANSCRIPT_STUDENT: ${{ secrets.UAT_NOTRANSCRIPT_STUDENT }}
+      UAT_TRANSCRIPT_STUDENT: ${{ secrets.UAT_TRANSCRIPT_STUDENT }}
+      UAT_ACADEMIC_RECORD_STUDENT: ${{ secrets.UAT_ACADEMIC_RECORD_STUDENT }}
+      UAT_ACADEMIC_RECORD_PERIOD: ${{ secrets.UAT_ACADEMIC_RECORD_PERIOD }}
+      UAT_ADDSTUDENT_PERIOD: ${{ secrets.UAT_ADDSTUDENT_PERIOD }}
+      UAT_MARKER_USER: ${{ secrets.UAT_MARKER_USER }}
+      UAT_ASSESSOR_USER: ${{ secrets.UAT_ASSESSOR_USER }}
+      UAT_WILL_STUDENT: ${{ secrets.UAT_WILL_STUDENT }}
+      UAT_DBHOST: ${{ secrets.UAT_DBHOST }}
+      UAT_DBUSER: ${{ secrets.UAT_DBUSER }}
+      UAT_DBPASSWORD: ${{ secrets.UAT_DBPASSWORD }}
+      UAT_DBNAME: ${{ secrets.UAT_DBNAME }}
+      # STG
+      STG_ADMIN_USERNAME: ${{ secrets.STG_ADMIN_USERNAME }}
+      STG_ADMIN_PASSWORD: ${{ secrets.STG_ADMIN_PASSWORD }}
+      STG_PROVINCE_OPTION: ${{ secrets.STG_PROVINCE_OPTION }}
+      STG_NOTRANSCRIPT_STUDENT: ${{ secrets.STG_NOTRANSCRIPT_STUDENT }}
+      STG_TRANSCRIPT_STUDENT: ${{ secrets.STG_TRANSCRIPT_STUDENT }}
+      STG_ACADEMIC_RECORD_STUDENT: ${{ secrets.STG_ACADEMIC_RECORD_STUDENT }}
+      STG_ACADEMIC_RECORD_PERIOD: ${{ secrets.STG_ACADEMIC_RECORD_PERIOD }}
+      STG_ADDSTUDENT_PERIOD: ${{ secrets.STG_ADDSTUDENT_PERIOD }}
+      STG_MARKER_USER: ${{ secrets.STG_MARKER_USER }}
+      STG_ASSESSOR_USER: ${{ secrets.STG_ASSESSOR_USER }}
+      STG_WILL_STUDENT: ${{ secrets.STG_WILL_STUDENT }}
+      STG_DBHOST: ${{ secrets.STG_DBHOST }}
+      STG_DBUSER: ${{ secrets.STG_DBUSER }}
+      STG_DBPASSWORD: ${{ secrets.STG_DBPASSWORD }}
+      STG_DBNAME: ${{ secrets.STG_DBNAME }}
+      # PROD
+      PROD_ADMIN_USERNAME: ${{ secrets.PROD_ADMIN_USERNAME }}
+      PROD_ADMIN_PASSWORD: ${{ secrets.PROD_ADMIN_PASSWORD }}
+      PROD_PROVINCE_OPTION: ${{ secrets.PROD_PROVINCE_OPTION }}
+      PROD_NOTRANSCRIPT_STUDENT: ${{ secrets.PROD_NOTRANSCRIPT_STUDENT }}
+      PROD_TRANSCRIPT_STUDENT: ${{ secrets.PROD_TRANSCRIPT_STUDENT }}
+      PROD_ACADEMIC_RECORD_STUDENT: ${{ secrets.PROD_ACADEMIC_RECORD_STUDENT }}
+      PROD_ACADEMIC_RECORD_PERIOD: ${{ secrets.PROD_ACADEMIC_RECORD_PERIOD }}
+      PROD_ADDSTUDENT_PERIOD: ${{ secrets.PROD_ADDSTUDENT_PERIOD }}
+      PROD_MARKER_USER: ${{ secrets.PROD_MARKER_USER }}
+      PROD_ASSESSOR_USER: ${{ secrets.PROD_ASSESSOR_USER }}
+      PROD_WILL_STUDENT: ${{ secrets.PROD_WILL_STUDENT }}
+      PROD_DBHOST: ${{ secrets.PROD_DBHOST }}
+      PROD_DBUSER: ${{ secrets.PROD_DBUSER }}
+      PROD_DBPASSWORD: ${{ secrets.PROD_DBPASSWORD }}
+      PROD_DBNAME: ${{ secrets.PROD_DBNAME }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Write secrets.ts from repo secrets
-        run: |
-          cat > secrets.ts <<'TS'
-          export const environmentSecrets = {
-            DEV: {
-              adminUsername: "${{ secrets.DEV_ADMIN_USERNAME }}",
-              adminPassword: "${{ secrets.DEV_ADMIN_PASSWORD }}",
-              provinceOption: "${{ secrets.DEV_PROVINCE_OPTION }}",
-              notranscriptStudent: "${{ secrets.DEV_NOTRANSCRIPT_STUDENT }}",
-              transcriptStudent: "${{ secrets.DEV_TRANSCRIPT_STUDENT }}",
-              academicRecordStudent: "${{ secrets.DEV_ACADEMIC_RECORD_STUDENT }}",
-              academicRecordPeriod: "${{ secrets.DEV_ACADEMIC_RECORD_PERIOD }}",
-              addstudentPeriod: "${{ secrets.DEV_ADDSTUDENT_PERIOD }}",
-              markerUser: "${{ secrets.DEV_MARKER_USER }}",
-              assessorUser: "${{ secrets.DEV_ASSESSOR_USER }}",
-              willStudent: "${{ secrets.DEV_WILL_STUDENT }}",
-              dbhost: "${{ secrets.DEV_DBHOST }}",
-              dbuser: "${{ secrets.DEV_DBUSER }}",
-              dbpassword: "${{ secrets.DEV_DBPASSWORD }}",
-              dbname: "${{ secrets.DEV_DBNAME }}",
-            },
-            UAT: {
-              adminUsername: "${{ secrets.UAT_ADMIN_USERNAME }}",
-              adminPassword: "${{ secrets.UAT_ADMIN_PASSWORD }}",
-              provinceOption: "${{ secrets.UAT_PROVINCE_OPTION }}",
-              notranscriptStudent: "${{ secrets.UAT_NOTRANSCRIPT_STUDENT }}",
-              transcriptStudent: "${{ secrets.UAT_TRANSCRIPT_STUDENT }}",
-              academicRecordStudent: "${{ secrets.UAT_ACADEMIC_RECORD_STUDENT }}",
-              academicRecordPeriod: "${{ secrets.UAT_ACADEMIC_RECORD_PERIOD }}",
-              addstudentPeriod: "${{ secrets.UAT_ADDSTUDENT_PERIOD }}",
-              markerUser: "${{ secrets.UAT_MARKER_USER }}",
-              assessorUser: "${{ secrets.UAT_ASSESSOR_USER }}",
-              willStudent: "${{ secrets.UAT_WILL_STUDENT }}",
-              dbhost: "${{ secrets.UAT_DBHOST }}",
-              dbuser: "${{ secrets.UAT_DBUSER }}",
-              dbpassword: "${{ secrets.UAT_DBPASSWORD }}",
-              dbname: "${{ secrets.UAT_DBNAME }}",
-            },
-            STG: {
-              adminUsername: "${{ secrets.STG_ADMIN_USERNAME }}",
-              adminPassword: "${{ secrets.STG_ADMIN_PASSWORD }}",
-              provinceOption: "${{ secrets.STG_PROVINCE_OPTION }}",
-              notranscriptStudent: "${{ secrets.STG_NOTRANSCRIPT_STUDENT }}",
-              transcriptStudent: "${{ secrets.STG_TRANSCRIPT_STUDENT }}",
-              academicRecordStudent: "${{ secrets.STG_ACADEMIC_RECORD_STUDENT }}",
-              academicRecordPeriod: "${{ secrets.STG_ACADEMIC_RECORD_PERIOD }}",
-              addstudentPeriod: "${{ secrets.STG_ADDSTUDENT_PERIOD }}",
-              markerUser: "${{ secrets.STG_MARKER_USER }}",
-              assessorUser: "${{ secrets.STG_ASSESSOR_USER }}",
-              willStudent: "${{ secrets.STG_WILL_STUDENT }}",
-              dbhost: "${{ secrets.STG_DBHOST }}",
-              dbuser: "${{ secrets.STG_DBUSER }}",
-              dbpassword: "${{ secrets.STG_DBPASSWORD }}",
-              dbname: "${{ secrets.STG_DBNAME }}",
-            },
-            PROD: {
-              adminUsername: "${{ secrets.PROD_ADMIN_USERNAME }}",
-              adminPassword: "${{ secrets.PROD_ADMIN_PASSWORD }}",
-              provinceOption: "${{ secrets.PROD_PROVINCE_OPTION }}",
-              notranscriptStudent: "${{ secrets.PROD_NOTRANSCRIPT_STUDENT }}",
-              transcriptStudent: "${{ secrets.PROD_TRANSCRIPT_STUDENT }}",
-              academicRecordStudent: "${{ secrets.PROD_ACADEMIC_RECORD_STUDENT }}",
-              academicRecordPeriod: "${{ secrets.PROD_ACADEMIC_RECORD_PERIOD }}",
-              addstudentPeriod: "${{ secrets.PROD_ADDSTUDENT_PERIOD }}",
-              markerUser: "${{ secrets.PROD_MARKER_USER }}",
-              assessorUser: "${{ secrets.PROD_ASSESSOR_USER }}",
-              willStudent: "${{ secrets.PROD_WILL_STUDENT }}",
-              dbhost: "${{ secrets.PROD_DBHOST }}",
-              dbuser: "${{ secrets.PROD_DBUSER }}",
-              dbpassword: "${{ secrets.PROD_DBPASSWORD }}",
-              dbname: "${{ secrets.PROD_DBNAME }}",
-            },
-          } as const;
-          TS
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
