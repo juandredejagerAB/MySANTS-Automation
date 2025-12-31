@@ -99,6 +99,18 @@ jobs:
       - name: Run Playwright DEV tests
         run: npm run test:dev
 
+      - name: Generate Allure Report
+        if: always()
+        run: npm run allure:generate
+
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 7
+
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
