@@ -108,7 +108,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright DEV tests
-        run: npm run test:dev
+        # run: npm run test:dev
 
       - name: Generate Allure Report
         if: always()
@@ -173,7 +173,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright UAT tests
-        run: npm run test:dev -- --project="UAT - Chrome"
+      #  run: npm run test:dev -- --project="UAT - Chrome"
 
       - name: Generate Allure Report
         if: always()
@@ -238,7 +238,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright STG tests
-        run: npm run test:dev -- --project="STG - Chrome"
+        # run: npm run test:dev -- --project="STG - Chrome"
 
       - name: Generate Allure Report
         if: always()

@@ -22,14 +22,14 @@ export class LoginPage extends BasePage {
     await this.page.goto("/");
 
     // Fill and submit
-    await this.usernameInput.click();
+    //await this.usernameInput.click();
     await this.usernameInput.fill(username);
-    await this.passwordInput.click();
+    //await this.passwordInput.click();
     await this.passwordInput.fill(password);
-
     console.log(`Logging in as ${username}`);
+    await this.submitButton.click();
 
-    await Promise.all([this.submitButton.click()]);
+    //await Promise.all([this.submitButton.click()]);
 
     // Wait for landing and optionally accept cookie banner
     await this.waitForLanding();
