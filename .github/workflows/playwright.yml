@@ -62,6 +62,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
-          destination_dir: allure/${{ github.ref_name // replace '/' with '-' }}
+          destination_dir: allure/${{ job.environment }}
           user_name: github-actions
           user_email: github-actions@github.com
