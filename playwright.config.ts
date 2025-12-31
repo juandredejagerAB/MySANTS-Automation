@@ -9,7 +9,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 0 : 0,
-  workers: process.env.CI ? 1 : 1,
+  workers: process.env.CI ? 5 : 2,
   reporter: [["list"], ["allure-playwright"]],
   use: {
     screenshot: "only-on-failure",
