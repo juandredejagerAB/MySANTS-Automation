@@ -1,2 +1,0 @@
-Connecting to DB:   
-Running query: SELECT * FROM appstudents WHERE Id = ? [ '3a1d2234-de05-367d-eafd-1b724d3eeab6' ]
