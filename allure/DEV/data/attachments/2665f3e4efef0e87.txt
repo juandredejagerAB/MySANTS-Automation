@@ -1,0 +1,6 @@
+{
+  idNumber: '6109277397082',
+  firstName: 'autoNSophia',
+  surname: 'Molefe',
+  email: 'autonsophiamolefe1767182211150@maildrop.cc'
+}
