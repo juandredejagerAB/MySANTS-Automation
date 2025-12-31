@@ -43,10 +43,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check PROD env presence (safe)
-        run: |
-          node -e "console.log('PROD_ADMIN_USERNAME present:', !!process.env.PROD_ADMIN_USERNAME, 'length:', process.env.PROD_ADMIN_USERNAME ? process.env.PROD_ADMIN_USERNAME.length : 0); console.log('PROD_ADMIN_PASSWORD present:', !!process.env.PROD_ADMIN_PASSWORD, 'length:', process.env.PROD_ADMIN_PASSWORD ? process.env.PROD_ADMIN_PASSWORD.length : 0)"
-
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
