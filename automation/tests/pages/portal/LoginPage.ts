@@ -25,7 +25,7 @@ export class LoginPage extends BasePage {
     await this.passwordInput.fill(password);
     console.log(`Logging in as ${username}`);
     await this.page.waitForTimeout(1000);
-    await this.submitButton.click();
+    await this.submitButton.click({ force: true });
 
     // Wait for landing and optionally accept cookie banner
     await this.waitForLanding();
