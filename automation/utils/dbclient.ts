@@ -1,7 +1,7 @@
 // utils/dbClient.ts
 
 import mysql from "mysql2/promise";
-import { environmentSecrets } from "../../secrets";
+import { environmentSecrets } from "../../config";
 import { inferEnv, type Env } from "./inferEnv";
 
 function getDbConfig(env?: Env) {

@@ -5,7 +5,7 @@ import {
   Page,
 } from "@playwright/test";
 import { LoginPage } from "../pages/portal/LoginPage.ts";
-import { environmentSecrets } from "../../../secrets.ts";
+import { environmentSecrets } from "../../../config.ts";
 import { inferEnv } from "../../utils/inferEnv.ts";
 
 type Env = keyof typeof environmentSecrets;

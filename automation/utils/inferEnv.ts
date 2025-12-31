@@ -1,5 +1,5 @@
 import type { TestInfo } from "@playwright/test";
-import { environmentSecrets } from "../../secrets";
+import { environmentSecrets } from "../../config";
 
 export type Env = keyof typeof environmentSecrets;
 

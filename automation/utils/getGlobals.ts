@@ -1,4 +1,4 @@
-import { environmentSecrets } from "../../secrets";
+import { environmentSecrets } from "../../config";
 import type { TestInfo } from "@playwright/test";
 
 // Define valid environment keys
