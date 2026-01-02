@@ -9,6 +9,8 @@ export class MaterialCombinationsPage extends BasePage {
   private readonly ReportingTabHeading: Locator;
   private readonly MaterialCombinationsTab: Locator;
   private readonly ReportingTab: Locator;
+  private readonly CreatePaxiShipmentButton: Locator;
+  private readonly UpdateTrakingNumberButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -26,6 +28,12 @@ export class MaterialCombinationsPage extends BasePage {
     this.ReportingTabHeading = page.getByRole("heading", {
       name: "Shipment Status Report",
     });
+    this.CreatePaxiShipmentButton = page.getByRole("button", {
+      name: " Create PAXI Shipment",
+    });
+    this.UpdateTrakingNumberButton = page.getByRole("button", {
+      name: " Update Tracking Number",
+    });
   }
 
   async navigateToMaterialCombinationsPage() {
@@ -42,5 +50,7 @@ export class MaterialCombinationsPage extends BasePage {
   async goToMaterialCombinationsTab() {
     await this.MaterialCombinationsTab.click();
     await expect(this.MaterialCombinationsTabHeading).toBeVisible();
+    await expect(this.CreatePaxiShipmentButton).toBeVisible();
+    await expect(this.UpdateTrakingNumberButton).toBeVisible();
   }
 }
